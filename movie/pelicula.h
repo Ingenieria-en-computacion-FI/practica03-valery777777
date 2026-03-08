@@ -1,24 +1,18 @@
 #ifndef __PELICULA_H__
 #define __PELICULA_H__
 
-#define MAX_DIRECTORES 10
+struct pelicula{
+    char nombre[100];
+    char genero [20];
+    int duracion; //[min]
+    char director[100];
+};
 
-/* Tipo opaco */
-typedef struct Pelicula Pelicula;
+typedef struct pelicula Pelicula;
 
-/* Crear una película */
-Pelicula* crearPelicula(const char* titulo, int anio, const char* genero);
-
-/* Imprimir información de la película */
-void imprimir(Pelicula* p);
-
-/* Cambiar el género */
-void cambiarGenero(Pelicula* p, const char* nuevoGenero);
-
-/* Agregar un director */
-void agregarDirector(Pelicula* p, const char* director);
-
-/* Liberar memoria */
-void destruir(Pelicula* p);
-
+Pelicula *crearPelicula(char *nombre, char *genero, int duracion);
+void imprimir(const Pelicula*);
+void cambiarGenero(Pelicula*, char*);
+void agregarDirector(Pelicula*, char*);
+void destruir(Pelicula*);
 #endif
