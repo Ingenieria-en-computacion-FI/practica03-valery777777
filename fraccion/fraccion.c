@@ -1,89 +1,46 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "fraccion.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-/* TODO
-   Definir la estructura Fraccion
-   Debe contener:
-   - numerador
-   - denominador
-*/
-struct Fraccion
-{
-    /* TODO */
+Fraccion *crearFraccion(int numerador, int denominador){
+    if(denominador == 0) return NULL; //no podemos dividir entre 0
+    Fraccion *f = (Fraccion*)malloc(sizeof(Fraccion));
+    f->numerador = numerador;
+    f->denominador = denominador;
+    return f;
+}
+
+void simplificar(Fraccion *f){
+    if(!f) return;
+
+    int num_orig= f->numerador;
+    int den_original= f-> denominador;
+
+    int p= num_orig, q= den_original, r;
+
+    while(q!=0){
+        r=p%q;
+        p=q;
+        q=r;
+    }
+    f-> numerador = num_orig/p;
+    f-> denominador = den_original/p;
+}
+
+Fraccion *sumar(const Fraccion *f1, const Fraccion *f2){
+    if(!f1 || !f2) return NULL;
+    Fraccion *resultado = crearFraccion(f1->numerador * f2->denominador + f2-> numerador * f1->denominador, f1->denominador * f2->denominador);
+    //método mariposa para sumar las fracciones 
+    simplificar(resultado);
+    return resultado;
+}
+
+void imprimirFraccion(const Fraccion *f){
+    if(!f) return;
+    printf("%d/%d\n", f->numerador, f->denominador);
+}
+
+void destruirFraccion(Fraccion* f){
+    if(!f) return;
+    free(f);
 };
-
-
-/* TODO
-   Crear una función auxiliar para calcular
-   el máximo común divisor (MCD)
-*/
-int mcd(int a, int b)
-{
-    /* TODO */
-
-    return 1;
-}
-
-
-/* Crear fracción */
-Fraccion* crearFraccion(int num, int den)
-{
-    /* TODO
-       1 Verificar que el denominador no sea 0
-       2 Reservar memoria con malloc
-       3 Asignar numerador y denominador
-       4 Simplificar la fracción
-       5 Regresar la fracción
-    */
-
-    return NULL;
-}
-
-
-/* Simplificar fracción */
-void simplificar(Fraccion* f)
-{
-    /* TODO
-       1 Calcular el MCD
-       2 Dividir numerador y denominador entre el MCD
-    */
-}
-
-
-/* Sumar fracciones */
-Fraccion* sumar(Fraccion* a, Fraccion* b)
-{
-    /* TODO
-       1 Calcular numerador resultante
-
-          a/b + c/d =
-          (a*d + b*c) / (b*d)
-
-       2 Crear nueva fracción
-       3 Simplificar
-       4 Regresar resultado
-    */
-
-    return NULL;
-}
-
-
-/* Imprimir fracción */
-void imprimir(Fraccion* f)
-{
-    /* TODO
-       Imprimir en formato:
-
-       numerador/denominador
-    */
-}
-
-
-/* Liberar memoria */
-void destruir(Fraccion* f)
-{
-    /* TODO
-       Liberar memoria con free
-    */
-}
